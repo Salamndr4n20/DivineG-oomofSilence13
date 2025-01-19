@@ -1,0 +1,65 @@
+import javax.sound.sampled.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class FrikAndFrak extends JPanel {
+    private static final int SAMPLE_RATE = 44100;
+    private static final int BUFFER_SIZE = 4096;
+    private ArrayList<Voice> voices;
+
+    public FrikAndFrak() {
+        voices = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            voices.add(new Voice());
+        }
+        setupUI();
+    }
+
+    private void setupUI() {
+        setLayout(new BorderLayout());
+        JButton playButton = new JButton("Play");
+        playButton.addActionListener(e -> playSounds());
+        add(playButton, BorderLayout.SOUTH);
+    }
+
+    private void playSounds() {
+        // Logic to play sounds based on MIDI input or sequencer
+        for (Voice voice : voices) {
+            voice.play();
+        }
+    }
+
+    private class Voice {
+        private float[] envelope;
+        private boolean isPlaying;
+
+        public Voice() {
+            envelope = new float[BUFFER_SIZE]; // Simple ADSR
+        }
+
+        public void play() {
+            isPlaying = true;
+            // Generate sound (placeholder)
+            generateSound();
+        }
+
+        private void generateSound() {
+            // Simple white noise generation
+            for (int i = 0; i < BUFFER_SIZE; i++) {
+                envelope[i] = (float) (Math.random() * 2 - 1); // White noise
+            }
+            // Apply ADSR here
+        }
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Frik and Frak Drum Synth");
+        FrikAndFrak drumSynth = new FrikAndFrak();
+        frame.add(drumSynth);
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}

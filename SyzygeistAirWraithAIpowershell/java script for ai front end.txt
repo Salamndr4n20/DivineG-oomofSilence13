@@ -1,0 +1,27 @@
+document.getElementById('sendButton').addEventListener('click', async () => {
+    const userInput = document.getElementById('userInput').value;
+    const responseArea = document.getElementById('responseArea');
+
+    if (!userInput) {
+        alert("Please enter a query.");
+        return;
+    }
+
+    responseArea.innerHTML = "Loading...";
+
+    try {
+        const response = await fetch('/api/ask-ai', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query: userInput }),
+        });
+
+        const data = await response.json();
+        responseArea.innerHTML = data.response || "No response from AI.";
+    } catch (error) {
+        console.error("Error:", error);
+        responseArea.innerHTML = "Error fetching response.";
+    }
+});
