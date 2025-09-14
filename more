@@ -1,0 +1,584 @@
+import javax.sound.sampled.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class DrumSynthesizer {
+    private List<Voice> voices;
+    private final int polyphony = 8;
+    private StepSequencer sequencer;
+
+    public DrumSynthesizer() {
+        voices = new ArrayList<>(polyphony);
+        for (int i = 0; i < polyphony; i++) {
+            voices.add(new Voice());
+        }
+        sequencer = new StepSequencer(voices);
+    }
+
+    public void playNote(int note) {
+        for (Voice voice : voices) {
+            if (!voice.isActive()) {
+                voice.play(note);
+                break;
+            }
+        }
+    }
+
+    public void stopNote(int note) {
+        for (Voice voice : voices) {
+            if (voice.getNote() == note) {
+                voice.stop();
+                break;
+            }
+        }
+    }
+
+    public void startSequencer() {
+        sequencer.start();
+    }
+
+    public static void main(String[] args) {
+        DrumSynthesizer synth = new DrumSynthesizer();
+        synth.startSequencer(); // Start the sequencer
+    }
+}
+
+class Voice {
+    private boolean active;
+    private int note;
+    private Oscillator oscillator;
+    private ADSR adsr;
+
+    public Voice() {
+        oscillator = new Oscillator();
+        adsr = new ADSR();
+    }
+
+    public void play(int note) {
+        this.note = note;
+        active = true;
+        adsr.trigger();
+        // Start audio thread here
+        new Thread(() -> {
+            while (active) {
+                // Generate sound based on oscillator
+                // Use audio output to play sound
+            }
+        }).start();
+    }
+
+    public void stop() {
+        active = false;
+        adsr.release();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getNote() {
+        return note;
+    }
+}
+
+class Oscillator {
+    public double generateWave(double frequency, double time) {
+        return Math.sin(2 * Math.PI * frequency * time); // Sine wave
+    }
+}
+
+class ADSR {
+    private double attackTime;
+    private double decayTime;
+    private double sustainLevel;
+    private double releaseTime;
+
+    public ADSR() {
+        this.attackTime = 0.1; // seconds
+        this.decayTime = 0.1;
+        this.sustainLevel = 0.7;
+        this.releaseTime = 0.2;
+    }
+
+    public void trigger() {
+        // Logic to handle attack and decay phases
+    }
+
+    public void release() {
+        // Logic to handle release phase
+    }
+}
+
+class StepSequencer {
+    private List<Voice> voices;
+    private boolean running;
+    private int currentStep;
+
+    public StepSequencer(List<Voice> voices) {
+        this.voices = voices;
+        this.currentStep = 0;
+    }
+
+    public void start() {
+        running = true;
+        new Thread(() -> {
+            while (running) {
+                // Play sounds based on the current step
+                for (Voice voice : voices) {
+                    if (/* check if voice should play at currentStep */) {
+                        voice.play(/* note number */);
+                    }
+                }
+                currentStep = (currentStep + 1) % /* total steps */;
+                try {
+                    Thread.sleep(200); // Adjust tempo here
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void stop() {
+        running = false;
+    }
+}
+import javax.sound.sampled.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class DrumSynthesizer {
+    private List<Voice> voices;
+    private final int polyphony = 8;
+    private StepSequencer sequencer;
+
+    public DrumSynthesizer() {
+        voices = new ArrayList<>(polyphony);
+        for (int i = 0; i < polyphony; i++) {
+            voices.add(new Voice());
+        }
+        sequencer = new StepSequencer(voices);
+    }
+
+    public void playNote(int note) {
+        for (Voice voice : voices) {
+            if (!voice.isActive()) {
+                voice.play(note);
+                break;
+            }
+        }
+    }
+
+    public void stopNote(int note) {
+        for (Voice voice : voices) {
+            if (voice.getNote() == note) {
+                voice.stop();
+                break;
+            }
+        }
+    }
+
+    public void startSequencer() {
+        sequencer.start();
+    }
+
+    public static void main(String[] args) {
+        DrumSynthesizer synth = new DrumSynthesizer();
+        synth.startSequencer(); // Start the sequencer
+    }
+}
+
+class Voice {
+    private boolean active;
+    private int note;
+    private Oscillator oscillator;
+    private ADSR adsr;
+
+    public Voice() {
+        oscillator = new Oscillator();
+        adsr = new ADSR();
+    }
+
+    public void play(int note) {
+        this.note = note;
+        active = true;
+        adsr.trigger();
+        // Start audio thread here
+        new Thread(() -> {
+            while (active) {
+                // Generate sound based on oscillator
+                // Use audio output to play sound
+            }
+        }).start();
+    }
+
+    public void stop() {
+        active = false;
+        adsr.release();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getNote() {
+        return note;
+    }
+}
+
+class Oscillator {
+    public double generateWave(double frequency, double time) {
+        return Math.sin(2 * Math.PI * frequency * time); // Sine wave
+    }
+}
+
+class ADSR {
+    private double attackTime;
+    private double decayTime;
+    private double sustainLevel;
+    private double releaseTime;
+
+    public ADSR() {
+        this.attackTime = 0.1; // seconds
+        this.decayTime = 0.1;
+        this.sustainLevel = 0.7;
+        this.releaseTime = 0.2;
+    }
+
+    public void trigger() {
+        // Logic to handle attack and decay phases
+    }
+
+    public void release() {
+        // Logic to handle release phase
+    }
+}
+
+class StepSequencer {
+    private List<Voice> voices;
+    private boolean running;
+    private int currentStep;
+
+    public StepSequencer(List<Voice> voices) {
+        this.voices = voices;
+        this.currentStep = 0;
+    }
+
+    public void start() {
+        running = true;
+        new Thread(() -> {
+            while (running) {
+                // Play sounds based on the current step
+                for (Voice voice : voices) {
+                    if (/* check if voice should play at currentStep */) {
+                        voice.play(/* note number */);
+                    }
+                }
+                currentStep = (currentStep + 1) % /* total steps */;
+                try {
+                    Thread.sleep(200); // Adjust tempo here
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void stop() {
+        running = false;
+    }
+}
+import javax.sound.sampled.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class DrumSynthesizer {
+    private List<Voice> voices;
+    private final int polyphony = 8;
+    private StepSequencer sequencer;
+
+    public DrumSynthesizer() {
+        voices = new ArrayList<>(polyphony);
+        for (int i = 0; i < polyphony; i++) {
+            voices.add(new Voice());
+        }
+        sequencer = new StepSequencer(voices);
+    }
+
+    public void playNote(int note) {
+        for (Voice voice : voices) {
+            if (!voice.isActive()) {
+                voice.play(note);
+                break;
+            }
+        }
+    }
+
+    public void stopNote(int note) {
+        for (Voice voice : voices) {
+            if (voice.getNote() == note) {
+                voice.stop();
+                break;
+            }
+        }
+    }
+
+    public void startSequencer() {
+        sequencer.start();
+    }
+
+    public static void main(String[] args) {
+        DrumSynthesizer synth = new DrumSynthesizer();
+        synth.startSequencer(); // Start the sequencer
+    }
+}
+
+class Voice {
+    private boolean active;
+    private int note;
+    private Oscillator oscillator;
+    private ADSR adsr;
+
+    public Voice() {
+        oscillator = new Oscillator();
+        adsr = new ADSR();
+    }
+
+    public void play(int note) {
+        this.note = note;
+        active = true;
+        adsr.trigger();
+        // Start audio thread here
+        new Thread(() -> {
+            while (active) {
+                // Generate sound based on oscillator
+                // Use audio output to play sound
+            }
+        }).start();
+    }
+
+    public void stop() {
+        active = false;
+        adsr.release();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getNote() {
+        return note;
+    }
+}
+
+class Oscillator {
+    public double generateWave(double frequency, double time) {
+        return Math.sin(2 * Math.PI * frequency * time); // Sine wave
+    }
+}
+
+class ADSR {
+    private double attackTime;
+    private double decayTime;
+    private double sustainLevel;
+    private double releaseTime;
+
+    public ADSR() {
+        this.attackTime = 0.1; // seconds
+        this.decayTime = 0.1;
+        this.sustainLevel = 0.7;
+        this.releaseTime = 0.2;
+    }
+
+    public void trigger() {
+        // Logic to handle attack and decay phases
+    }
+
+    public void release() {
+        // Logic to handle release phase
+    }
+}
+
+class StepSequencer {
+    private List<Voice> voices;
+    private boolean running;
+    private int currentStep;
+
+    public StepSequencer(List<Voice> voices) {
+        this.voices = voices;
+        this.currentStep = 0;
+    }
+
+    public void start() {
+        running = true;
+        new Thread(() -> {
+            while (running) {
+                // Play sounds based on the current step
+                for (Voice voice : voices) {
+                    if (/* check if voice should play at currentStep */) {
+                        voice.play(/* note number */);
+                    }
+                }
+                currentStep = (currentStep + 1) % /* total steps */;
+                try {
+                    Thread.sleep(200); // Adjust tempo here
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void stop() {
+        running = false;
+    }
+}
+import javax.sound.sampled.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class DrumSynthesizer {
+    private List<Voice> voices;
+    private final int polyphony = 8;
+    private StepSequencer sequencer;
+
+    public DrumSynthesizer() {
+        voices = new ArrayList<>(polyphony);
+        for (int i = 0; i < polyphony; i++) {
+            voices.add(new Voice());
+        }
+        sequencer = new StepSequencer(voices);
+    }
+
+    public void playNote(int note) {
+        for (Voice voice : voices) {
+            if (!voice.isActive()) {
+                voice.play(note);
+                break;
+            }
+        }
+    }
+
+    public void stopNote(int note) {
+        for (Voice voice : voices) {
+            if (voice.getNote() == note) {
+                voice.stop();
+                break;
+            }
+        }
+    }
+
+    public void startSequencer() {
+        sequencer.start();
+    }
+
+    public static void main(String[] args) {
+        DrumSynthesizer synth = new DrumSynthesizer();
+        synth.startSequencer(); // Start the sequencer
+    }
+}
+
+class Voice {
+    private boolean active;
+    private int note;
+    private Oscillator oscillator;
+    private ADSR adsr;
+
+    public Voice() {
+        oscillator = new Oscillator();
+        adsr = new ADSR();
+    }
+
+    public void play(int note) {
+        this.note = note;
+        active = true;
+        adsr.trigger();
+        // Start audio thread here
+        new Thread(() -> {
+            while (active) {
+                // Generate sound based on oscillator
+                // Use audio output to play sound
+            }
+        }).start();
+    }
+
+    public void stop() {
+        active = false;
+        adsr.release();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public int getNote() {
+        return note;
+    }
+}
+
+class Oscillator {
+    public double generateWave(double frequency, double time) {
+        return Math.sin(2 * Math.PI * frequency * time); // Sine wave
+    }
+}
+
+class ADSR {
+    private double attackTime;
+    private double decayTime;
+    private double sustainLevel;
+    private double releaseTime;
+
+    public ADSR() {
+        this.attackTime = 0.1; // seconds
+        this.decayTime = 0.1;
+        this.sustainLevel = 0.7;
+        this.releaseTime = 0.2;
+    }
+
+    public void trigger() {
+        // Logic to handle attack and decay phases
+    }
+
+    public void release() {
+        // Logic to handle release phase
+    }
+}
+
+class StepSequencer {
+    private List<Voice> voices;
+    private boolean running;
+    private int currentStep;
+
+    public StepSequencer(List<Voice> voices) {
+        this.voices = voices;
+        this.currentStep = 0;
+    }
+
+    public void start() {
+        running = true;
+        new Thread(() -> {
+            while (running) {
+                // Play sounds based on the current step
+                for (Voice voice : voices) {
+                    if (/* check if voice should play at currentStep */) {
+                        voice.play(/* note number */);
+                    }
+                }
+                currentStep = (currentStep + 1) % /* total steps */;
+                try {
+                    Thread.sleep(200); // Adjust tempo here
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void stop() {
+        running = false;
+    }
+}
