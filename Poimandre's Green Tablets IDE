@@ -1,0 +1,40 @@
+# Poimandres IDE Architecture
+
+## Overview
+Poimandres IDE is a cross-platform, modular, open-source creative field combining:
+- Notebook-style code execution (Python/JS)
+- Markdown and concept cells
+- Rare Arts Tablet (NFT-ready art and metadata)
+- Wallet integration (MetaMask + WalletConnect)
+- IPFS uploader for decentralized storage
+- Daemon layer for context-aware assistance
+- Resonance Graph for visual relationships between Scrolls
+
+## Core Modules
+- `notebook/` : Code and markdown cells, execution engine
+- `wallet/` : Wallet connection, address, network display, change handling
+- `rare-arts/` : Artifact upload, metadata generation, IPFS integration
+- `daemon/` : AI assistance module, context tracking, suggestion engine
+- `resonance/` : Visual graph for Scroll relationships and knowledge mapping
+- `ui/` : Global theming, layout, reusable components
+
+## Data Models
+- **Cell**
+  - `id`, `type`, `language`, `content`, `output`
+- **Scroll**
+  - `id`, `title`, `cells`, `createdAt`, `intent`, `resonanceTags`
+- **Artifact**
+  - `id`, `title`, `description`, `imageCid`, `metadataCid`, `type`, `owner`
+
+## Storage
+- Local (IndexedDB) for session persistence
+- IPFS for artifact images and metadata
+- Future: optional blockchain for minting
+
+## UX / Theming
+- Global Solar / Lunar / Abyssal themes
+- Focus on mystical, minimal, and legible interface
+- Modular plug-in ready
+
+## Contribution Path
+- `docs/CONTRIBUTING.md` outlines how to add Scrolls, Artifacts, Daemons, and Plugins
