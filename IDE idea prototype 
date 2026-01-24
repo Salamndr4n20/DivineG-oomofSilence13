@@ -1,0 +1,137 @@
+
+git clone https://github.com/Salamndr4n20/poimandres-ide.git
+cd poimandres-ide
+
+# Setup default branches
+git checkout -b dev
+git checkout -b ui-layout-codex
+git checkout -b cell-engine
+git checkout -b build-alchemy
+git checkout -b ai-daemon
+git checkout -b hermetic-debugger
+git checkout -b glyph-visualizer
+git checkout -b techne-docs
+git checkout -b scroll-library
+
+# Push branches
+git push -u origin dev
+git push -u origin ui-layout-codex
+git push -u origin cell-engine
+git push -u origin build-alchemy
+git push -u origin ai-daemon
+git push -u origin hermetic-debugger
+git push -u origin glyph-visualizer
+git push -u origin techne-docs
+git push -u origin scroll-library
+
+# Poimandres IDE – The Techne Tablets
+
+**An open-source sacred interface for the unification of code, consciousness, and creativity.**
+
+Inspired by Jupyter Notebooks, but expanded beyond. This is a place where coders, philosophers, mystics, scientists, and visionaries can invoke logic, build worlds, and compose living knowledge.
+
+## Vision
+> “As above, so below. As in thought, so in code.”
+
+Poimandres IDE is a modular, cross-platform coding grimoire that fuses live code, mystical design, visual debugging, AI-guided logic, and executable builds into a sacred text editor for the next generation of creators.
+
+## Key Features
+- Live multi-language code cells (Python, Java, JS, Bash)
+- One-click JAR and APK compilation
+- Visual debugger with mystical glyphs
+- AI Daemon Assistant (Thoth-like support module)
+- Glyphgraph builder for node-based logic prototyping
+- Notebook + Markdown + diagram fusion
+- Modular "Tablet Plugins" and shared Scroll Libraries
+
+## Branches
+- `main` – Stable release
+- `dev` – Active development
+- `ui-layout-codex` – Tailwind + React layout engine
+- `cell-engine` – Core code cell executor
+- `build-alchemy` – JAR/APK/Prototype packaging
+- `ai-daemon` – Embedded GPT-style assistant
+- `hermetic-debugger` – Visual logic step-through system
+- `glyph-visualizer` – Code-to-glyph mapping
+- `techne-docs` – Vision, manifesto, contributing guides
+- `scroll-library` – User-shared notebooks, poems, and spells
+
+## Philosophy
+Poimandres IDE is a temple of thought. Every line of code is an invocation. Every function is a rune. Every application is a creation spell.
+
+---
+
+## Get Involved
+Coming soon: Contribution guide, plugin SDK, and open community space.
+
+> *May your code be sharp, your glyphs luminous, and your daemon wise.*import React, { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Textarea } from "@/components/ui/textarea";
+export default function RareArtsTablet() { const [title, setTitle] = useState(""); const [description, setDescription] = useState(""); const [image, setImage] = useState(null); const [preview, setPreview] = useState(null);
+const handleImageUpload = (e) => { const file = e.target.files[0]; setImage(file); setPreview(URL.createObjectURL(file)); };
+const mintNFT = () => { // Placeholder for smart contract integration alert(Minting NFT: ${title}); };
+return ( 
+Rare Arts Tablet
+Mint your cosmic glyphs into sacred digital sigils
+<Card className="max-w-3xl mx-auto bg-gray-900 border-gray-700"> <CardContent className="p-4 space-y-4"> <Input type="text" placeholder="Title of your Sigil" value={title} onChange={(e) => setTitle(e.target.value)} className="bg-black text-white" /> <Textarea placeholder="Describe your divine glyph..." rows={4} value={description} onChange={(e) => setDescription(e.target.value)} className="bg-black text-white" /> <Input type="file" accept="image/*" onChange={handleImageUpload} className="bg-black text-white" /> {preview && ( <div className="border border-gray-600 p-2 rounded"> <img src={preview} alt="Preview" className="w-full max-h-96 object-contain" /> </div> )} <div className="text-center pt-4"> <Button onClick={mintNFT} disabled={!title || !image}> Mint Sigil NFT </Button> </div> </CardContent> </Card> </div> 
+); }
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+export default function RareArtsTablet() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState(null);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
+  const mintNFT = () => {
+    // Placeholder for smart contract integration
+    alert(`Minting NFT: ${title}`);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 to-black text-white p-6">
+      <h2 className="text-3xl font-bold mb-4 text-center">Rare Arts Tablet</h2>
+      <p className="text-center text-sm opacity-60 mb-6">Mint your cosmic glyphs into sacred digital sigils</p>
+
+      <Card className="max-w-3xl mx-auto bg-gray-900 border-gray-700">
+        <CardContent className="p-4 space-y-4">
+          <Input
+            type="text"
+            placeholder="Title of your Sigil"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="bg-black text-white"
+          />
+          <Textarea
+            placeholder="Describe your divine glyph..."
+            rows={4}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="bg-black text-white"
+          />
+          <Input type="file" accept="image/*" onChange={handleImageUpload} className="bg-black text-white" />
+
+          {preview && (
+            <div className="border border-gray-600 p-2 rounded">
+              <img src={preview} alt="Preview" className="w-full max-h-96 object-contain" />
+            </div>
+          )}
+
+          <div className="text-center pt-4">
+            <Button onClick={mintNFT} disabled={!title || !image}>
+              Mint Sigil NFT
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
